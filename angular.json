@@ -2,5 +2,135 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "fortune-app": {
+      "root": "projects/fortune-app/",
+      "sourceRoot": "projects/fortune-app/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/fortune-app",
+            "index": "projects/fortune-app/src/index.html",
+            "main": "projects/fortune-app/src/main.ts",
+            "polyfills": "projects/fortune-app/src/polyfills.ts",
+            "tsConfig": "projects/fortune-app/tsconfig.app.json",
+            "assets": [
+              "projects/fortune-app/src/favicon.ico",
+              "projects/fortune-app/src/assets"
+            ],
+            "styles": [
+              "projects/fortune-app/src/styles.css"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/fortune-app/src/environments/environment.ts",
+                  "with": "projects/fortune-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "fortune-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "fortune-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "fortune-app:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/fortune-app/src/test.ts",
+            "polyfills": "projects/fortune-app/src/polyfills.ts",
+            "tsConfig": "projects/fortune-app/tsconfig.spec.json",
+            "karmaConfig": "projects/fortune-app/karma.conf.js",
+            "styles": [
+              "projects/fortune-app/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/fortune-app/src/favicon.ico",
+              "projects/fortune-app/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/fortune-app/tsconfig.app.json",
+              "projects/fortune-app/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "fortune-app-e2e": {
+      "root": "projects/fortune-app-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/fortune-app-e2e/protractor.conf.js",
+            "devServerTarget": "fortune-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "fortune-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/fortune-app-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "fortune-app"
 }
